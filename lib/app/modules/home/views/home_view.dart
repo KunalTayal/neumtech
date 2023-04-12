@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
@@ -10,13 +11,35 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          splashRadius: 20,
+          icon: SvgPicture.asset('assets/svg/back_icon.svg'),
+        ),
+        title: const Text('Select Service'),
+        centerTitle: false,
+        backgroundColor: Colors.black,
       ),
-      body: const Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          child: MaterialButton(
+            padding: const EdgeInsets.symmetric(vertical: 13),
+            onPressed: () {},
+            color: Colors.black,
+            child: const Text(
+              "Proceed to Date and Time",
+              style: TextStyle(color: Colors.white, fontSize: 17),
+            ),
+          ),
         ),
       ),
     );
