@@ -9,7 +9,7 @@ void main() {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Application",
-      initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.inital,
       getPages: AppPages.routes,
       theme: ThemeData(fontFamily: 'Helvetica'),
     ),

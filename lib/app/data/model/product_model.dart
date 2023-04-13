@@ -16,7 +16,9 @@ class ProductModel {
         description = json['description'] as String?,
         imageUrl = json['image_url'] as String?,
         services = (json['services'] as List?)
-            ?.map((dynamic e) => Services.fromJson(e as Map<String, dynamic>))
+            ?.map((dynamic e) => Services.fromJson(
+                  e as Map<String, dynamic>,
+                ))
             .toList();
 
   Map<String, dynamic> toJson() => {
@@ -32,24 +34,29 @@ class Services {
   final int? rate;
   final String? description;
   final String? imageUrl;
+  bool? added;
 
   Services({
     this.serviceName,
     this.rate,
     this.description,
     this.imageUrl,
+    this.added,
   });
 
-  Services.fromJson(Map<String, dynamic> json)
-      : serviceName = json['service_name'] as String?,
-        rate = json['rate'] as int?,
-        description = json['description'] as String?,
-        imageUrl = json['image_url'] as String?;
+  factory Services.fromJson(Map<String, dynamic> json) => Services(
+        serviceName: json['service_name'] as String?,
+        rate: json['rate'] as int?,
+        description: json['description'] as String?,
+        imageUrl: json['image_url'] as String?,
+        added: false,
+      );
 
   Map<String, dynamic> toJson() => {
         'service_name': serviceName,
         'rate': rate,
         'description': description,
-        'image_url': imageUrl
+        'image_url': imageUrl,
+        'added': added,
       };
 }

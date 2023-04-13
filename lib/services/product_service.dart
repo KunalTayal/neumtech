@@ -13,18 +13,20 @@ class ProductService extends GetxService {
     try {
       var response = await http.get(
         Uri.parse(url),
+        headers: defaultAuthenticatedHeader(
+            'CIGfMA0GCSqGSIb3DQEBAQdqDup1pgSc0tQUMQUAA4GNADCBiQKBgQD3apAg6H2i'),
       );
-
       if (response.statusCode == 200) {
         Get.showSnackbar(GetSnackBar(
           duration: const Duration(seconds: 1),
           message: jsonDecode(response.body)['message'],
         ));
+        log(jsonDecode(response.body).toString());
         return ProductModel.fromJson(jsonDecode(response.body)['data']);
       } else {
         log(response.statusCode.toString());
         log(jsonDecode(response.body));
-        return Future.error('Server Error!');
+        return ProductModel();
       }
     } catch (e) {
       log(e.toString());
