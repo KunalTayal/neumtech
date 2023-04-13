@@ -31,8 +31,8 @@ class HomeView extends GetView<HomeController> {
       body: Obx(() {
         return Stack(
           children: [
-            (controller.productModel.value.categoryName != "" &&
-                    controller.productModel.value.categoryName != null)
+            (controller.productModel?.categoryName != "" &&
+                    controller.productModel?.categoryName != null)
                 ? SingleChildScrollView(
                     child: Column(
                       children: [
@@ -42,7 +42,7 @@ class HomeView extends GetView<HomeController> {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
-                                controller.productModel.value.imageUrl ?? "",
+                                controller.productModel?.imageUrl ?? "",
                               ),
                               fit: BoxFit.fill,
                             ),
@@ -57,7 +57,7 @@ class HomeView extends GetView<HomeController> {
                           title: Padding(
                             padding: const EdgeInsets.only(top: 5, bottom: 5),
                             child: Text(
-                              controller.productModel.value.categoryName ?? "",
+                              controller.productModel?.categoryName ?? "",
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 17,
@@ -75,7 +75,7 @@ class HomeView extends GetView<HomeController> {
                           subtitle: Padding(
                             padding: const EdgeInsets.only(right: 20),
                             child: Text(
-                              controller.productModel.value.description ?? "",
+                              controller.productModel?.description ?? "",
                               style: const TextStyle(
                                 color: Color(0xffa7a7a7),
                                 fontSize: 13,
@@ -100,9 +100,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                         ),
-                        (controller.productModel.value.services != null &&
-                                controller
-                                    .productModel.value.services!.isNotEmpty)
+                        (controller.services.isNotEmpty)
                             ? ListView.separated(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
@@ -113,39 +111,25 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                 separatorBuilder: (context, index) => Obx(() {
                                       return CustomServiceListItem(
-                                        url: controller.productModel.value
-                                                .services![index].imageUrl ??
+                                        url: controller
+                                                .services[index].imageUrl ??
                                             "",
                                         serviceName: controller
-                                                .productModel
-                                                .value
-                                                .services![index]
-                                                .serviceName ??
+                                                .services[index].serviceName ??
                                             "",
-                                        rate: controller.productModel.value
-                                            .services![index].rate
+                                        rate: controller.services[index].rate
                                             .toString(),
                                         description: controller
-                                                .productModel
-                                                .value
-                                                .services![index]
-                                                .description ??
+                                                .services[index].description ??
                                             "",
-                                        added: controller.productModel.value
-                                                .services![index].added ??
-                                            false,
-                                        onPressed: () async {
-                                          controller.productModel.value
-                                                  .services![index].added =
-                                              !(controller.productModel.value
-                                                  .services![index].added!);
-                                          controller.update();
+                                        added:
+                                            controller.addedList[index].value,
+                                        onPressed: () {
+                                          controller.toAddToggle(index);
                                         },
                                       );
                                     }),
-                                itemCount: controller
-                                        .productModel.value.services!.length +
-                                    1)
+                                itemCount: controller.services.length + 1)
                             : const Center(
                                 child: Padding(
                                   padding: EdgeInsets.all(25.0),

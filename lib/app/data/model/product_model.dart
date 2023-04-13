@@ -34,14 +34,12 @@ class Services {
   final int? rate;
   final String? description;
   final String? imageUrl;
-  bool? added;
 
   Services({
     this.serviceName,
     this.rate,
     this.description,
     this.imageUrl,
-    this.added,
   });
 
   factory Services.fromJson(Map<String, dynamic> json) => Services(
@@ -49,7 +47,6 @@ class Services {
         rate: json['rate'] as int?,
         description: json['description'] as String?,
         imageUrl: json['image_url'] as String?,
-        added: false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +54,5 @@ class Services {
         'rate': rate,
         'description': description,
         'image_url': imageUrl,
-        'added': added,
       };
 }
